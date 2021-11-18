@@ -34,11 +34,18 @@ A collaborative project between the Communications Security Establishment (CSE) 
    - Benign (Normal human activities) # 월요일 - 정상 데이터입니다.
    1. Data Normalize
       - tshark -nnr Monday-WorkingHours.pcap -Tfields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e ip.proto -e tcp.flags -e tcp.flags.syn -e tcp.flags.ack -e ip.len -e frame.len -e udp.port | awk '{print strftime("%Y-%m-%d %H:%M:%S", $1) "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}'|gzip > Monday.tsv.gz
-     
-   2. Web Server, Ubuntu Server Availability Analysis(웹 서버, 우분투 서버 가용성 분석)
+ ![image](https://user-images.githubusercontent.com/47383452/142409135-35a1d163-b21b-4937-a350-019b66becde6.png)
+      - Inside flow visualization(192.168.XX.XX) : Web Server(10.50), DNS+ DC Server(10.3), Ubuntu Server(10.51),etc,,
+   2. DNS+DC Server, Web Server, Ubuntu Server Availability Analysis(DNS+DC, 웹 서버, 우분투 서버 가용성 분석)
    - Server Availability, Check Session per Second, Packet per Second, Byte per Second
-     1) Web Server
-     2) Ubuntu Server
+     1) DNS+DC
+      * ```zcat Monday.tsv.gz | grep 192.168.10.3 | awk '$8=="0x00000002"{print $2, "SYN";next}$8=="0x00000012"{print $2, "SYNACK";next}' | sort | uniq -c | tr "\n" "|" | sed 's/SYNACK|/SYNACK\n/g'| tr "|" " " | awk '{print $2 "\t" $1 "\t" $4 "\t" $4/$1*100}' | feedgnuplot --domain --timefmt "%H:%M:%S" --lines --points --title "DNS+DC Server Side Rate" --xlab "time" --y2lab "pkts" --ylab "SYN/SYNACK RATE" --ymax 120 --y2max 50 --y2 0 --legend 0 "SYN" --legend 1 "SYNACK" --legend 2 "SYNACK / SYN"```
+![image](https://user-images.githubusercontent.com/47383452/142415540-b92cb635-2348-46e8-83f1-b4cc0d4313af.png)
+
+     2) Web Server
+       *
+     3) Ubuntu Server
+       *
 * Tuesday, July 4, 2017
   - Brute Force
   - FTP-Patator (9:20 – 10:20 a.m.)
