@@ -1,4 +1,4 @@
-# CIC-IDS2017-Data-Analysis
+# CIC-IDS2017-Data-Analysis with Anomaly Detection
 Intrusion Detection Evaluation Dataset (CIC-IDS2017) Data Analysis
 A collaborative project between the Communications Security Establishment (CSE) & the Canadian Institute for Cybersecurity (CIC)
 - https://www.unb.ca/cic/datasets/ids-2017.html
