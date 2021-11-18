@@ -41,11 +41,10 @@ A collaborative project between the Communications Security Establishment (CSE) 
      1) DNS+DC
       * ```zcat Monday.tsv.gz | grep 192.168.10.3 | awk '$8=="0x00000002"{print $2, "SYN";next}$8=="0x00000012"{print $2, "SYNACK";next}' | sort | uniq -c | tr "\n" "|" | sed 's/SYNACK|/SYNACK\n/g'| tr "|" " " | awk '{print $2 "\t" $1 "\t" $4 "\t" $4/$1*100}' | feedgnuplot --domain --timefmt "%H:%M:%S" --lines --points --title "DNS+DC Server Side Rate" --xlab "time" --y2lab "pkts" --ylab "SYN/SYNACK RATE" --ymax 120 --y2max 50 --y2 0 --legend 0 "SYN" --legend 1 "SYNACK" --legend 2 "SYNACK / SYN"```
 ![image](https://user-images.githubusercontent.com/47383452/142415540-b92cb635-2348-46e8-83f1-b4cc0d4313af.png)
-
      2) Web Server
-       *
+       * 
      3) Ubuntu Server
-       *
+       * 
 * Tuesday, July 4, 2017
   - Brute Force
   - FTP-Patator (9:20 – 10:20 a.m.)
