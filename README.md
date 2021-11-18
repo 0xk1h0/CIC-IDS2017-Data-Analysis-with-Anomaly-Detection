@@ -32,11 +32,13 @@ A collaborative project between the Communications Security Establishment (CSE) 
 
 * Monday, July 3, 2017
    - Benign (Normal human activities) # 월요일 - 정상 데이터입니다.
-   1. 데이터 Normalize
+   1. Data Normalize
       - tshark -nnr Monday-WorkingHours.pcap -Tfields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e ip.proto -e tcp.flags -e tcp.flags.syn -e tcp.flags.ack -e ip.len -e frame.len -e udp.port | awk '{print strftime("%Y-%m-%d %H:%M:%S", $1) "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}'|gzip > Monday.tsv.gz
-   2. 
-   - Check Session per Second, Packet per Second, Byte per Second
-   -  
+     
+   2. Web Server, Ubuntu Server Availability Analysis(웹 서버, 우분투 서버 가용성 분석)
+   - Server Availability, Check Session per Second, Packet per Second, Byte per Second
+     1) Web Server
+     2) Ubuntu Server
 * Tuesday, July 4, 2017
   - Brute Force
   - FTP-Patator (9:20 – 10:20 a.m.)
