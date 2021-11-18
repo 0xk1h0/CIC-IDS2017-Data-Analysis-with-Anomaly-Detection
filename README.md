@@ -1,7 +1,58 @@
-# CIC-IDS2018-Data-Analysis
-Intrusion Detection Evaluation Dataset (CIC-IDS2018) Data Analysis
+# CIC-IDS2017-Data-Analysis
+Intrusion Detection Evaluation Dataset (CIC-IDS2017) Data Analysis
 A collaborative project between the Communications Security Establishment (CSE) & the Canadian Institute for Cybersecurity (CIC)
-https://www.unb.ca/cic/datasets/ids-2018.html
+- https://www.unb.ca/cic/datasets/ids-2017.html
 
-이상탐지는 새로운 공격을 탐지할 수 있는 방안이기도 하나 구현에 앞서 상당한 양의 테스트, 평가 및 조정이 필요하기 때문에 시스템 복잡성으로 인해 실제 애플리케이션으로의 채택이 지연되고 있습니다. 실제 레이블링된 네트워크 추적에 실행하는 것이 테스트 및 평가에 이상적인 방법론 중 하나입니다.
+* CICIDS2017 dataset contains benign and the most up-to-date common attacks, which resembles the true real-world data (PCAPs).
 
+* The data capturing period started at 9 a.m., Monday, July 3, 2017 and ended at 5 p.m. on Friday July 7, 2017, for a total of 5 days. Monday is the normal day and only includes the benign traffic. The implemented attacks include Brute Force FTP, Brute Force SSH, DoS, Heartbleed, Web Attack, Infiltration, Botnet and DDoS. They have been executed both morning and afternoon on Tuesday, Wednesday, Thursday and Friday.
+
+### Victim and attacker networks information
+
+* Firewall: 205.174.165.80, 172.16.0.1
+
+* DNS+ DC Server: 192.168.10.3
+
+* Outsiders (Attackers network)
+  - Kali: 205.174.165.73
+  - Win: 205.174.165.69, 70, 71
+* Insiders (Victim network)
+  - Web server 16 Public: 192.168.10.50, 205.174.165.68
+  - Ubuntu server 12 Public: 192.168.10.51, 205.174.165.66
+  - Ubuntu 14.4, 32B: 192.168.10.19
+  - Ubuntu 14.4, 64B: 192.168.10.17
+  - Ubuntu 16.4, 32B: 192.168.10.16
+  - Ubuntu 16.4, 64B: 192.168.10.12
+  - Win 7 Pro, 64B: 192.168.10.9
+  - Win 8.1, 64B: 192.168.10.5
+  - Win Vista, 64B: 192.168.10.8
+  - Win 10, pro 32B: 192.168.10.14
+  - Win 10, 64B: 192.168.10.15
+  - MAC: 192.168.10.25
+
+* Monday, July 3, 2017
+ - Benign (Normal human activities)
+
+* Tuesday, July 4, 2017
+  - Brute Force
+  - FTP-Patator (9:20 – 10:20 a.m.)
+  - SSH-Patator (14:00 – 15:00 p.m.)
+  - Attacker: Kali, 205.174.165.73
+  - Victim: WebServer Ubuntu, 205.174.165.68 (Local IP: 192.168.10.50)
+  - NAT Process on Firewall:
+  - Attack: 205.174.165.73 -> 205.174.165.80 (Valid IP of the Firewall) -> 172.16.0.1 -> 192.168.10.50
+  - Reply: 192.168.10.50 -> 172.16.0.1 -> 205.174.165.80 -> 205.174.165.73
+* Wednesday, July 5, 2017
+ - DoS / DDoS
+ - DoS slowloris (9:47 – 10:10 a.m.)
+ - DoS Slowhttptest (10:14 – 10:35 a.m.)
+ - DoS Hulk (10:43 – 11 a.m.)
+ - DoS GoldenEye (11:10 – 11:23 a.m.)
+ - Attacker: Kali, 205.174.165.73
+ - Victim: WebServer Ubuntu, 205.174.165.68 (Local IP192.168.10.50)
+ - NAT Process on Firewall:
+ - Attack: 205.174.165.73 -> 205.174.165.80 (Valid IP of the Firewall) -> 172.16.0.1 -> 192.168.10.50
+ - Reply: 192.168.10.50 -> 172.16.0.1 -> 205.174.165.80 -> 205.174.165.73
+ - Heartbleed Port 444 (15:12 - 15:32)
+ - Attacker: Kali, 205.174.165.73
+ - Victim: Ubuntu12, 205.174.165.66 (Local IP192.168.10.51)
