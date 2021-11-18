@@ -31,8 +31,12 @@ A collaborative project between the Communications Security Establishment (CSE) 
   - MAC: 192.168.10.25
 
 * Monday, July 3, 2017
- - Benign (Normal human activities)
-
+   - Benign (Normal human activities) # 월요일 - 정상 데이터입니다.
+   1. 데이터 Normalize
+      - tshark -nnr Monday-WorkingHours.pcap -Tfields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e ip.proto -e tcp.flags -e tcp.flags.syn -e tcp.flags.ack -e ip.len -e frame.len -e udp.port | awk '{print strftime("%Y-%m-%d %H:%M:%S", $1) "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}'|gzip > Monday.tsv.gz
+   2. 
+   - Check Session per Second, Packet per Second, Byte per Second
+   -  
 * Tuesday, July 4, 2017
   - Brute Force
   - FTP-Patator (9:20 – 10:20 a.m.)
@@ -43,16 +47,16 @@ A collaborative project between the Communications Security Establishment (CSE) 
   - Attack: 205.174.165.73 -> 205.174.165.80 (Valid IP of the Firewall) -> 172.16.0.1 -> 192.168.10.50
   - Reply: 192.168.10.50 -> 172.16.0.1 -> 205.174.165.80 -> 205.174.165.73
 * Wednesday, July 5, 2017
- - DoS / DDoS
- - DoS slowloris (9:47 – 10:10 a.m.)
- - DoS Slowhttptest (10:14 – 10:35 a.m.)
- - DoS Hulk (10:43 – 11 a.m.)
- - DoS GoldenEye (11:10 – 11:23 a.m.)
- - Attacker: Kali, 205.174.165.73
- - Victim: WebServer Ubuntu, 205.174.165.68 (Local IP192.168.10.50)
- - NAT Process on Firewall:
- - Attack: 205.174.165.73 -> 205.174.165.80 (Valid IP of the Firewall) -> 172.16.0.1 -> 192.168.10.50
- - Reply: 192.168.10.50 -> 172.16.0.1 -> 205.174.165.80 -> 205.174.165.73
- - Heartbleed Port 444 (15:12 - 15:32)
- - Attacker: Kali, 205.174.165.73
- - Victim: Ubuntu12, 205.174.165.66 (Local IP192.168.10.51)
+   - DoS / DDoS
+   - DoS slowloris (9:47 – 10:10 a.m.)
+   - DoS Slowhttptest (10:14 – 10:35 a.m.)
+   - DoS Hulk (10:43 – 11 a.m.)
+   - DoS GoldenEye (11:10 – 11:23 a.m.)
+   - Attacker: Kali, 205.174.165.73
+   - Victim: WebServer Ubuntu, 205.174.165.68 (Local IP192.168.10.50)
+   - NAT Process on Firewall:
+   - Attack: 205.174.165.73 -> 205.174.165.80 (Valid IP of the Firewall) -> 172.16.0.1 -> 192.168.10.50
+   - Reply: 192.168.10.50 -> 172.16.0.1 -> 205.174.165.80 -> 205.174.165.73
+   - Heartbleed Port 444 (15:12 - 15:32)
+   - Attacker: Kali, 205.174.165.73
+   - Victim: Ubuntu12, 205.174.165.66 (Local IP192.168.10.51)
