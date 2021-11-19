@@ -36,32 +36,52 @@ A collaborative project between the Communications Security Establishment (CSE) 
   - MAC: 192.168.10.25
 
 * Monday, July 3, 2017
-   - Benign (Normal human activities) # 월요일 - 정상 데이터입니다.
+   - Benign (Normal human activities) # 월요일 - 정상 데이터
    1. Data Normalize
 <!--       - tshark -nnr Monday-WorkingHours.pcap -Tfields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e ip.proto -e tcp.flags -e tcp.flags.syn -e tcp.flags.ack -e ip.len -e frame.len -e udp.port | awk '{print strftime("%Y-%m-%d %H:%M:%S", $1) "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}'|gzip > Monday.tsv.gz -->
- ![image](https://user-images.githubusercontent.com/47383452/142409135-35a1d163-b21b-4937-a350-019b66becde6.png)
-      - Inside flow visualization(192.168.XX.XX) : Web Server(10.50), DNS+ DC Server(10.3), Ubuntu Server(10.51),etc,,
-   2. DNS+DC Server, Web Server Availability Analysis(DNS+DC, 웹 서버, 우분투 서버 가용성 분석)
-   - Server Availability, Check Session per Second, Packet per Second
-   - Sustaining Availability 100%
-     1) DNS+DC Server
-      * SPS
-        ![image](https://user-images.githubusercontent.com/47383452/142534718-f539ebe3-3a6a-4734-9469-b5a2f2596cf4.png)   
-      * PPS
-        
-      * ```zcat Monday.tsv.gz | grep 192.168.10.3 | awk '$8=="0x00000002"{print $2, "SYN";next}$8=="0x00000012"{print $2, "SYNACK";next}' | sort | uniq -c | tr "\n" "|" | sed 's/SYNACK|/SYNACK\n/g'| tr "|" " " | awk '{print $2 "\t" $1 "\t" $4 "\t" $4/$1*100}' | feedgnuplot --domain --timefmt "%H:%M:%S" --lines --points --title "DNS+DC Server Side Rate" --xlab "time" --y2lab "pkts" --ylab "SYN/SYNACK RATE" --ymax 120 --y2max 50 --y2 0 --legend 0 "SYN" --legend 1 "SYNACK" --legend 2 "SYNACK / SYN"```
-        
-       ![image](https://user-images.githubusercontent.com/47383452/142520338-f7b3ebef-26b3-4516-aec8-663eb817ca1a.png)
-        
-     2) Web Server
-       * SPS
-        ![image](https://user-images.githubusercontent.com/47383452/142537990-d2c4a6f9-5c1e-4d0c-8ec4-faaab0c0d249.png)
-       * PPS
-       
-       * ```zcat Monday.tsv.gz | grep -e 192.168.10.50 -e 205.174.165.68 | awk '$8=="0x00000002"{print $2, "SYN";next}$8=="0x00000012"{print $2, "SYNACK";next}' | sort | uniq -c | tr "\n" "|" | sed 's/SYNACK|/SYNACK\n/g'| tr "|" " " | awk '{print $2 "\t" $1 "\t" $4 "\t" $4/$1*100}' | feedgnuplot --domain --timefmt "%H:%M:%S" --lines --points --title "Web Server Side Rate" --xlab "time" --y2lab "pkts" --ylab "SYN/SYNACK RATE" --ymax 120 --y2max 50 --y2 3 --legend 0 "SYN" --legend 1 "SYNACK" --legend 2 "SYNACK / SYN"```
-       
-       ![image](https://user-images.githubusercontent.com/47383452/142520256-914a829f-d93b-4824-b1d0-14caf628ca94.png)
-       
+     ![image](https://user-images.githubusercontent.com/47383452/142409135-35a1d163-b21b-4937-a350-019b66becde6.png)
+        - Inside flow visualization(192.168.XX.XX) : Web Server(10.50), DNS+ DC Server(10.3), Ubuntu Server(10.51),etc,,
+      
+   2. Internal 
+      *  TCP
+      ```  192.168.10.12:139
+        192.168.10.3:135
+        192.168.10.3:139
+        192.168.10.3:3268
+        192.168.10.3:389
+        192.168.10.3:445
+        192.168.10.3:49666
+        192.168.10.3:49671
+        192.168.10.3:53
+        192.168.10.3:88
+        192.168.10.50:14189
+        192.168.10.50:21
+        192.168.10.50:22
+        ```
+         ![image](https://user-images.githubusercontent.com/47383452/142601143-348a67b8-4257-4c65-bcd5-c31728264ca5.png)
+      *  UDP
+        ```
+        192.168.10.12:137
+        192.168.10.16:137
+        192.168.10.17:137
+        192.168.10.19:137
+        192.168.10.1:53
+        192.168.10.3:123
+        192.168.10.3:137
+        192.168.10.3:389
+        192.168.10.3:53
+        192.168.10.3:88
+        192.168.10.50:137
+        ```
+        - ![image](https://user-images.githubusercontent.com/47383452/142601541-42987bba-376d-401f-b987-30f0e9e63675.png)
+      *  192.168.10.50_192.168.10.3 데이터 유통추이
+        ```
+        zcat internal.gz| awk '$3=="192.168.10.50" && $5=="192.168.10.3"{print $2 "\t" $10, $11}'  | sort  |
+        awk '$1==prv{ssum+=$2; dsum+=$3;sb+=$2;db+=$3;next}{print prv "\t" sb "\t" db "\t" ssum "\t" dsum; prv=$1; sb=$2;db=$3}' | sort -n  |
+        feedgnuplot --domain --timefmt "%H:%M:%S" --lines --points --y2 2 --y2 3 --legend 0 "sbyte" --legend 1 "dbyte" --legend 2 "agg sbyte" --legend 3 "agg dbyte" --y2max 6000000
+        ```
+        - ![image](https://user-images.githubusercontent.com/47383452/142602771-af84d8d4-19e5-44a3-ac24-c5b382299683.png)
+
 * Tuesday, July 4, 2017
   - Brute Force
   - FTP-Patator (9:20 – 10:20 a.m.)
