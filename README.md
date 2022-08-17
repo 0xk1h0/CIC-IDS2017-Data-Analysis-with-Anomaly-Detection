@@ -1,8 +1,4 @@
-### CIC IDS2017 데이터 분석 및 머신러닝 이상탐지
- - 분석도구 : Ubuntu 20.04 CLI
- - ML 모델 : RFE, KNN, LSTM, AutoEncoder
- - Dataset Size : 약 50GB
- - 
+### CIC IDS2017 
 # CIC-IDS2017-Data-Analysis with Anomaly Detection
 Intrusion Detection Evaluation Dataset (CIC-IDS2017) Data Analysis
 A collaborative project between the Communications Security Establishment (CSE) & the Canadian Institute for Cybersecurity (CIC)
@@ -36,7 +32,7 @@ A collaborative project between the Communications Security Establishment (CSE) 
   - MAC: 192.168.10.25
 
 * Monday, July 3, 2017
-   - Benign (Normal human activities) # 월요일 - 정상 데이터
+   - Benign (Normal human activities)
    1. Data Normalize
 <!--       - tshark -nnr Monday-WorkingHours.pcap -Tfields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e ip.proto -e tcp.flags -e tcp.flags.syn -e tcp.flags.ack -e ip.len -e frame.len -e udp.port | awk '{print strftime("%Y-%m-%d %H:%M:%S", $1) "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6 "\t" $7 "\t" $8 "\t" $9 "\t" $10 "\t" $11}'|gzip > Monday.tsv.gz -->
      ![image](https://user-images.githubusercontent.com/47383452/142409135-35a1d163-b21b-4937-a350-019b66becde6.png)
@@ -74,7 +70,7 @@ A collaborative project between the Communications Security Establishment (CSE) 
         192.168.10.50:137
         ```
         - ![image](https://user-images.githubusercontent.com/47383452/142601541-42987bba-376d-401f-b987-30f0e9e63675.png)
-      *  192.168.10.50_192.168.10.3 데이터 유통추이
+      *  192.168.10.50_192.168.10.3 
         ```
         zcat internal.gz| awk '$3=="192.168.10.50" && $5=="192.168.10.3"{print $2 "\t" $10, $11}'  | sort  |
         awk '$1==prv{ssum+=$2; dsum+=$3;sb+=$2;db+=$3;next}{print prv "\t" sb "\t" db "\t" ssum "\t" dsum; prv=$1; sb=$2;db=$3}' | sort -n  |
